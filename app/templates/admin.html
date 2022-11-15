@@ -48,8 +48,7 @@
           </p>
           <ul class="menu-list">
             <li><a class="is-active">Dashboard</a></li>
-            <li><a>Customers</a></li>
-            <li><a>Other</a></li>
+            <li><a href="/luggage">Add Luggage</a></li>
           </ul>
 
         </aside>
@@ -84,10 +83,20 @@
                   <table class="table is-fullwidth is-striped">
                     <tbody>
                       <tr>
-                        <td width="5%"><i class="fa fa-shopping-bag"></i></td>
-                        <td>Laugage 0</td>
-                        <td class="level-right"><a class="button is-small is-primary" href="#">Print</a></td>
+                        <td>
+                        <td>ID</td>
+                        <td>Owner</td>
+                        <td>Owner Contact</td>
+                        <td>Luggage Description</td>
                       </tr>
+                      {% for luggage in luggages %}
+                      <tr>
+                        <td width="5%"><td>00{{ luggage.id }}</td></td>
+                        <td>{{ luggage.name }}</td>
+                        <td>{{ luggage.email }}</td>
+                        <td>{{ luggage.description }}</td>
+                      </tr>
+                      {% endfor %}
                     </tbody>
                   </table>
                 </div>
@@ -101,7 +110,7 @@
             <div class="card">
               <header class="card-header">
                 <p class="card-header-title">
-                  Lauggage Search
+                  Luggage Search
                 </p>
                 <a href="#" class="card-header-icon" aria-label="more options">
                   <span class="icon">
