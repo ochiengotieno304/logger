@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
+from flask_login import login_required, current_user
 from .models import Lauggage
 from . import db
 
@@ -6,28 +7,20 @@ main = Blueprint('main', __name__)
 
 
 @main.route('/')
+@login_required
 def index():
-    return render_template('index.html')
-
-
-@main.route('/admin')
-def admin():
     luggages = Lauggage.query.all()
-    return render_template('admin.html', luggages=luggages)
+    return render_template('index.html', luggages=luggages)
 
 
-# @main.route('/admin')
-# def view_luggages():
-#     luggages = Lauggage.query.all()
-#     return render_template('admin.html', luggages=luggages)
-
-
-@main.route('/luggage')
+@main.route('/new-luggage')
+@login_required
 def luggage():
     return render_template('luggage.html')
 
 
-@main.route('/luggage', methods=['POST'])
+@main.route('/new-luggage', methods=['POST'])
+@login_required
 def add_luggage():
     name = request.form.get('name')
     email = request.form.get('email')
@@ -39,3 +32,9 @@ def add_luggage():
     db.session.commit()
 
     return redirect(url_for('main.admin'))
+
+
+@main.route('/luggage/<id>')
+@login_required
+def view_luggage(id):
+    return render_template('show_luggage.html', id=id)

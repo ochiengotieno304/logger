@@ -1,10 +1,75 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1 class="title">
-  Luggage Logger
-</h1>
-<h2 class="subtitle">
-  Luggage Logger
-</h2>
+
+<div class="columns">
+  <div class="column is-3 ">
+    <aside class="menu is-hidden-mobile">
+      <p class="menu-label">
+        General
+      </p>
+      <ul class="menu-list">
+        <li><a class="has-background-primary has-text-white">Dashboard</a></li>
+        <li><a href="{{ url_for('main.luggage') }}">Add Luggage</a></li>
+      </ul>
+
+    </aside>
+  </div>
+  <div class="column is-9">
+    <section class="hero is-primary welcome is-small">
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title">
+            Laguages
+          </h1>
+
+        </div>
+      </div>
+    </section>
+
+
+    <div class="is-6">
+      <div class="card events-card">
+        <header class="card-header">
+
+          <a href="#" class="card-header-icon" aria-label="more options">
+            <span class="icon">
+              <i class="fa fa-angle-down" aria-hidden="true"></i>
+            </span>
+          </a>
+        </header>
+        <div class="card-table">
+          <div class="content">
+            <table class="table is-fullwidth is-striped">
+              <tbody>
+                <tr>
+                  <td>
+                  <td>ID</td>
+                  <td>Owner</td>
+                  <td>Owner Contact</td>
+                  <td>Luggage Description</td>
+                </tr>
+                {% for luggage in luggages %}
+                <tr>
+                  <td width="5%">
+                  <td>00{{ luggage.id }}</td>
+                  </td>
+                  <td>{{ luggage.name }}</td>
+                  <td>{{ luggage.email }}</td>
+                  <td>{{ luggage.description }}</td>
+                  <td><a class="button is-link is-small"
+                      href="{{ url_for('main.view_luggage', id='{{ luggage.id }}') }}">View</a></td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
 {% endblock %}
