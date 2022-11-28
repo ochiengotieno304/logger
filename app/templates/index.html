@@ -58,7 +58,7 @@
                   <td>{{ luggage.email }}</td>
                   <td>{{ luggage.description }}</td>
                   <td><a class="button is-link is-small"
-                      href="{{ url_for('main.view_luggage', id='{{ luggage.id }}') }}">View</a></td>
+                      href="/luggage/{{luggage.id}}">View</a></td>
                 </tr>
                 {% endfor %}
               </tbody>

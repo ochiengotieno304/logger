@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="card-table">
+  <div class="content">
+    <table class="table is-fullwidth is-striped">
+      <tbody>
+        <tr>
+          <td>
+          <td>ID</td>
+          <td>Owner</td>
+          <td>Owner Contact</td>
+          <td>Luggage Description</td>
+        </tr>
+        <tr>
+          <td width="5%">
+          <td>00{{ luggage.id }}</td>
+          </td>
+          <td>{{ luggage.name }}</td>
+          <td>{{ luggage.email }}</td>
+          <td>{{ luggage.description }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="has-text-centered">
+  <img src="{{ qrcode(data, box_size=12, border=10) }}" alt="qrcode">
+</div>
+{% endblock %}
