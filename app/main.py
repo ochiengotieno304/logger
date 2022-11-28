@@ -31,7 +31,7 @@ def add_luggage():
     db.session.add(new_luggage)
     db.session.commit()
 
-    return redirect(url_for('main.admin'))
+    return redirect(url_for('main.index'))
 
 
 @main.route('/luggage/<id>')
