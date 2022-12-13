@@ -20,6 +20,7 @@
           <td>{{ luggage.name }}</td>
           <td>{{ luggage.email }}</td>
           <td>{{ luggage.description }}</td>
+          <td><a href="{{ url_for("main.logout", id=luggage.id) }}">Logout</a></td>
         </tr>
       </tbody>
     </table>
