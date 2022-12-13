@@ -4,13 +4,14 @@ from .models import Lauggage
 from . import db
 import africastalking
 import os
+import smtplib
 
 
 main = Blueprint('main', __name__)
 
 username = os.getenv('user_name', 'sandbox')
-api_key = os.getenv('api_key')
-phone = os.getenv('phone')
+api_key = os.getenv('api_key', 'key')
+phone = os.getenv('phone', 'phone')
 
 africastalking.initialize(username, api_key)
 sms = africastalking.SMS
@@ -41,6 +42,12 @@ def add_luggage():
     db.session.add(new_luggage)
     db.session.commit()
 
+    message = f"Dear {new_luggage.name} your luggage ID: 00{new_luggage.id} has been logged into our storage"
+    server = smtplib.SMTP("smtp.google.com", 587)
+    server.starttls()
+    server.login(os.getenv("email"), os.getenv("password"))
+    server.sendmail(os.getenv("email"), luggage.email, message)
+
     sms.send(f"Dear {new_luggage.name} your luggage ID: 00{new_luggage.id} has been logged into our storage", [f"{phone}"], callback=on_finish)
     return redirect(url_for('main.index'))
 
@@ -64,6 +71,12 @@ def view_luggage(id):
 def logout(id):
     luggage = Lauggage.query.filter_by(id=id).first_or_404()
 
+    message = f"Dear {luggage.name} your luggage ID: 00{luggage.id} has been logged out of our storage"
+    server = smtplib.SMTP("smtp.google.com", 587)
+    server.starttls()
+    server.login(os.getenv("email"), os.getenv("password"))
+    server.sendmail(os.getenv("email"), luggage.email, message)
+
     sms.send(f"Dear {luggage.name} your luggage ID: 00{luggage.id} has been logged out of our storage", [f"{phone}"], callback=on_finish)
 
     db.session.delete(luggage)
@@ -71,6 +84,3 @@ def logout(id):
     flash("Luggage logged out")
 
     return redirect(url_for('main.index'))
-
-
-
