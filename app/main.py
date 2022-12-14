@@ -42,11 +42,11 @@ def add_luggage():
     db.session.add(new_luggage)
     db.session.commit()
 
-     message = f"Dear {new_luggage.name} your luggage ID: 00{new_luggage.id} has been logged into our storage"
-     server = smtplib.SMTP("smtp.google.com", 465)
-     server.starttls()
-     server.login(os.getenv("email"), os.getenv("password"))
-     server.sendmail(os.getenv("email"), luggage.email, message)
+    message = f"Dear {new_luggage.name} your luggage ID: 00{new_luggage.id} has been logged into our storage"
+    server = smtplib.SMTP("smtp.google.com", 465)
+    server.starttls()
+    server.login(os.getenv("email"), os.getenv("password"))
+    server.sendmail(os.getenv("email"), luggage.email, message)
 
     sms.send(f"Dear {new_luggage.name} your luggage ID: 00{new_luggage.id} has been logged into our storage", [f"{phone}"], callback=on_finish)
     return redirect(url_for('main.index'))
@@ -71,11 +71,11 @@ def view_luggage(id):
 def logout(id):
     luggage = Lauggage.query.filter_by(id=id).first_or_404()
 
-     message = f"Dear {luggage.name} your luggage ID: 00{luggage.id} has been logged out of our storage"
-     server = smtplib.SMTP("smtp.google.com", 465)
-     server.starttls()
-     server.login(os.getenv("email"), os.getenv("password"))
-     server.sendmail(os.getenv("email"), luggage.email, message)
+    message = f"Dear {luggage.name} your luggage ID: 00{luggage.id} has been logged out of our storage"
+    server = smtplib.SMTP("smtp.google.com", 465)
+    server.starttls()
+    server.login(os.getenv("email"), os.getenv("password"))
+    server.sendmail(os.getenv("email"), luggage.email, message)
 
     sms.send(f"Dear {luggage.name} your luggage ID: 00{luggage.id} has been logged out of our storage", [f"{phone}"], callback=on_finish)
 
