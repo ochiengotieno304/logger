@@ -53,7 +53,7 @@ def add_luggage():
 
     mail.send(msg)
 
-    # sms.send(f"Dear {new_luggage.name} your luggage ID: 00{new_luggage.id} has been logged into our storage", [f"{phone}"], callback=on_finish)
+    sms.send(f"Dear {new_luggage.name} your luggage ID: 00{new_luggage.id} has been logged into our storage", [f"{phone}"], callback=on_finish)
     return redirect(url_for('main.index'))
 
 
@@ -85,7 +85,7 @@ def logout(id):
 
     mail.send(msg)
 
-    # sms.send(f"Dear {luggage.name} your luggage ID: 00{luggage.id} has been logged out of our storage", [f"{phone}"], callback=on_finish)
+    sms.send(f"Dear {luggage.name} your luggage ID: 00{luggage.id} has been logged out of our storage", [f"{phone}"], callback=on_finish)
 
     db.session.delete(luggage)
     db.session.commit()
