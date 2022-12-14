@@ -2,6 +2,8 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_qrcode import QRcode
+from flask_mail import Mail
+import os
 
 
 # init SQLAlchemy so we can use it later in our models
@@ -10,6 +12,15 @@ db = SQLAlchemy()
 
 def create_app():
     app = Flask(__name__)
+    app.config.update(
+        MAIL_SERVER='smtp.gmail.com',
+        MAIL_PORT=587,
+        MAIL_USE_TLS=True,
+        MAIL_USERNAME=os.getenv("email"),
+        MAIL_PASSWORD=os.getenv("password")
+    )
+    global mail
+    mail = Mail(app)
 
     app.config['SECRET_KEY'] = 'secret-key-goes-here'
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite'
